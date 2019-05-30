@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -31,6 +32,7 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.LatLngBounds;
 import com.baidu.mapapi.overlayutil.OverlayManager;
 import com.baidu.mapapi.overlayutil.TransitRouteOverlay;
 import com.baidu.mapapi.search.core.RouteLine;
@@ -75,6 +77,7 @@ public class MainActivity extends Activity implements BaiduMap.OnMapClickListene
     OverlayManager routeOverlay = null;
     boolean useDefaultIcon = false;
     private TextView popupText = null;
+    private Button button1;
     RoutePlanSearch mSearch = null;
 
     private void setMapCustomFile(Context abcd, String custom_map_config) {
@@ -124,6 +127,8 @@ public class MainActivity extends Activity implements BaiduMap.OnMapClickListene
         initLocation();
         registerSDKCheckReceiver();
         LatLng cenpt = new LatLng(116.47113,39.885423);
+        LatLng l1 = new LatLng(116.403847,39.915526);
+        LatLng l2 = new LatLng(116.484017,39.880747);
         //定义地图状态
         MapStatus mMapStatus = new MapStatus.Builder()
                 .target(cenpt)
@@ -140,9 +145,19 @@ public class MainActivity extends Activity implements BaiduMap.OnMapClickListene
         baiduMap.setOnMapClickListener(this);
         // 初始化搜索模块，注册事件监听
         mSearch = RoutePlanSearch.newInstance();
-        mSearch.setOnGetRoutePlanResultListener((OnGetRoutePlanResultListener)this);
+        mSearch.setOnGetRoutePlanResultListener(this);
         SearchButtonProcess(mapView);
-        MapView.setMapCustomEnable(true);
+        button1=(Button)findViewById(R.id.a) ;
+        button1.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.setClass(com.example.zhangmengyi.MainActivity.this,Main2Activity.class);
+                startActivity(intent);
+            }
+        });
+
+//        MapView.setMapCustomEnable(false);
         baiduMap.setMyLocationEnabled(true);
         //positionText= (TextView) findViewById(R.id.position_text_view);
         List<String> permissionList = new ArrayList<>();
@@ -161,8 +176,17 @@ public class MainActivity extends Activity implements BaiduMap.OnMapClickListene
         } else {
             requestLocation();
         }
+        // 动态设置终点
+        EditText mEditText = (EditText) findViewById(R.id.end);
+        Intent intent = getIntent();
+        String positionName = intent.getStringExtra("positionName");
+        mEditText.setText(positionName);
 
     }
+
+
+
+
     /**
      * 发起路线规划搜索示例
      *
@@ -179,8 +203,8 @@ public class MainActivity extends Activity implements BaiduMap.OnMapClickListene
         EditText editSt = (EditText) findViewById(R.id.start);
         EditText editEn = (EditText) findViewById(R.id.end);
         //设置起终点信息，对于tranist search 来说，城市名无意义
-        PlanNode stNode = PlanNode.withCityNameAndPlaceName("北京", "西二旗地铁站");
-        PlanNode enNode = PlanNode.withCityNameAndPlaceName("北京", "百度科技园");
+        PlanNode stNode = PlanNode.withLocation(new LatLng(116.403847,39.915526));
+        PlanNode enNode = PlanNode.withLocation(new LatLng(116.484017,39.880747));
 
         // 实际使用中请对起点终点城市进行正确的设定
             mSearch.transitSearch((new TransitRoutePlanOption())
@@ -275,11 +299,11 @@ public class MainActivity extends Activity implements BaiduMap.OnMapClickListene
     public void onGetTransitRouteResult(TransitRouteResult result) {
 
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-            Toast.makeText(MainActivity.this, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Not Found", Toast.LENGTH_SHORT).show();
         }
         if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
             //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
-            result.getSuggestAddrInfo();
+            //result.getSuggestAddrInfo();
             return;
         }
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {
