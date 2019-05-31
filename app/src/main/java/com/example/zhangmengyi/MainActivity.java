@@ -171,7 +171,9 @@ public class MainActivity extends Activity implements BaiduMap.OnMapClickListene
             }
         });
 
+
         MapView.setMapCustomEnable(true);
+
         baiduMap.setMyLocationEnabled(true);
         //positionText= (TextView) findViewById(R.id.position_text_view);
         List<String> permissionList = new ArrayList<>();
