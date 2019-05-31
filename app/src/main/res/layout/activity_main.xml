@@ -40,27 +40,27 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="普通"
+            android:text="REGULAR"
             android:id="@+id/putong"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="卫星"
+            android:text="SATELLITE"
             android:id="@+id/weixin"/>
+        <!--<RadioButton-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="BLANK"-->
+            <!--android:id="@+id/kongbai"/>-->
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="空白"
-            android:id="@+id/kongbai"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="实况"
+            android:text="REAL-TIME"
             android:id="@+id/shikuan" />
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="热力图"
+            android:text="HEAT"
             android:id="@+id/reli"/>
     </RadioGroup>
 

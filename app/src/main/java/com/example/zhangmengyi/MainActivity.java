@@ -133,7 +133,7 @@ public class MainActivity extends Activity implements BaiduMap.OnMapClickListene
                 switch (i){
                     case R.id.putong:baiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);baiduMap.setTrafficEnabled(false);baiduMap.setBaiduHeatMapEnabled(false);break;
                     case R.id.weixin:baiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);baiduMap.setTrafficEnabled(false);baiduMap.setBaiduHeatMapEnabled(false);break;
-                    case R.id.kongbai:baiduMap.setMapType(BaiduMap.MAP_TYPE_NONE);baiduMap.setTrafficEnabled(false);baiduMap.setBaiduHeatMapEnabled(false);break;
+//                    case R.id.kongbai:baiduMap.setMapType(BaiduMap.MAP_TYPE_NONE);baiduMap.setTrafficEnabled(false);baiduMap.setBaiduHeatMapEnabled(false);break;
                     case R.id.shikuan:baiduMap.setTrafficEnabled(true);baiduMap.setBaiduHeatMapEnabled(false);break;
                     case R.id.reli:baiduMap.setBaiduHeatMapEnabled(true);baiduMap.setTrafficEnabled(false);break;
                 }
