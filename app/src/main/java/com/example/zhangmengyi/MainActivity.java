@@ -126,6 +126,20 @@ public class MainActivity extends Activity implements BaiduMap.OnMapClickListene
         baiduMap = mapView.getMap();//获取地图控制器
         initLocation();
         registerSDKCheckReceiver();
+        leixing=(RadioGroup)findViewById(R.id.leixin);
+        leixing.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.putong:baiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);baiduMap.setTrafficEnabled(false);baiduMap.setBaiduHeatMapEnabled(false);break;
+                    case R.id.weixin:baiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);baiduMap.setTrafficEnabled(false);baiduMap.setBaiduHeatMapEnabled(false);break;
+//                    case R.id.kongbai:baiduMap.setMapType(BaiduMap.MAP_TYPE_NONE);baiduMap.setTrafficEnabled(false);baiduMap.setBaiduHeatMapEnabled(false);break;
+                    case R.id.shikuan:baiduMap.setTrafficEnabled(true);baiduMap.setBaiduHeatMapEnabled(false);break;
+                    case R.id.reli:baiduMap.setBaiduHeatMapEnabled(true);baiduMap.setTrafficEnabled(false);break;
+                }
+            }
+        });
+
         LatLng cenpt = new LatLng(116.47113,39.885423);
         LatLng l1 = new LatLng(116.403847,39.915526);
         LatLng l2 = new LatLng(116.484017,39.880747);
@@ -157,7 +171,9 @@ public class MainActivity extends Activity implements BaiduMap.OnMapClickListene
             }
         });
 
-//        MapView.setMapCustomEnable(false);
+
+        MapView.setMapCustomEnable(true);
+
         baiduMap.setMyLocationEnabled(true);
         //positionText= (TextView) findViewById(R.id.position_text_view);
         List<String> permissionList = new ArrayList<>();
